@@ -54,13 +54,13 @@ public class MovieBuffBot extends TelegramLongPollingBot {
     @Override
     public String getBotUsername() {
         // Return bot username
-        return "BigBoi69bot";
+        return "OmaJannieBot";
     }
 
     @Override
     public String getBotToken() {
         // Return bot token from BotFather
-        return "829283421:AAF3GtyguIyp1IF_ZE4G_ayYzX_dEXFdqgs";
+        return "837593841:AAGdSpVZEKb7_G70Q5_UjuFwnl4Ucp_1FJQ";
     }
 
 }
