@@ -70,7 +70,8 @@
 
 + [*] video formats [*]
 - There it is! 
-^ <call>send photo resources/meme.png The graph produced by R</call>
+^ <call>system "C:/Program Files/R/R-3.5.3/bin/Rscript.exe" D:/git/git/DataScienceChatbot8/resources/R/video-format.R> NUL</call>
+^ <call>send photo C:/Users/sjimm/Documents/rplot.jpg The graph produced by R</call>
 
 // Substitutions
 ! sub i'm     = i am
