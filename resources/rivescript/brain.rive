@@ -1,35 +1,37 @@
 // brain.rive
 
 + hello
-- Hi there!
+- Hello my dear!
 
 + how are you
-- I'm fine.
+- I'm fine my dear.
 - Splendid!
 - Couldn't be better!
 
 //1
 + which (films|movies) * between # and #
-- <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT movie, date FROM public."Release" WHERE date BETWEEN <star3> AND <star4> ORDER BY date</call>;
+-I know of these movies:\n
+^ <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT title, year FROM public.movie WHERE year BETWEEN <star3> AND <star4> ORDER BY year</call>;
 //2
-+ which (films|movies) has[ got] the highest (rating|ratings)[*] (votes|voters)
-- <call>jdbc localhost 5432 MovieIMDB postgres 12345 </call>
++ what are the best (films|movies) in the genre *
+- <call>jdbc localhost 5432 MovieIMDB postgres 12345</call>
 //3
 + which (films|movies) have[ been] (made|produced) in *
-- <call>jdbc localhost 5432 MovieIMDB postgres 12345 </call> <star3>
+- I know of these:\n
+^ <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT title, country FROM public.country WHERE country=<star3> ORDER BY title</call>
 //4
 + how many people rated *
-- <call>jdbc localhost 5432 MovieIMDB postgres 12345 </call> <star2>
+- <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT vote FROM public.rating WHERE title='<star2>' ORDER BY title;</call> people rated that movie.
 + how many (ratings|votes) did * get
-- <call>jdbc localhost 5432 MovieIMDB postgres 12345 </call> <star2>
+- <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT vote FROM public.rating WHERE title='<star2>' ORDER BY title;</call> people rated that movie.
 //5
 + how much time[*] (finish|watch) *
-- <call>jdbc localhost 5432 MovieIMDB postgres 12345 </call> <star3>
+- <star3> takes <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT duration FROM public.movie WHERE title='<star3>' ORDER BY title</call> minutes to watch.
 //6
 + in which language was * made
-- <call>jdbc localhost 5432 MovieIMDB postgres 12345 </call> <star1>
-+ What language was spoken in *
-- <call>jdbc localhost 5432 MovieIMDB postgres 12345 </call> <star1>
+- I think they spoke: <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT language FROM public.language WHERE title='<star>'</call> in that movie
++ (what|which) language[s] (was|were) spoken in *
+- I think they spoke: <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT language FROM public.language WHERE title='<star3>'</call> in that movie
 
 + (which|what) genre[s] *
 - popular genre
@@ -44,33 +46,18 @@
 - most language
 
 + [*] start [*]
-- Hello, I'm BigBoiBot, I know a lot about movies. Ask me anything and I might just know the answer.
+- Hello, I'm grandma Jannie, I know a lot about movies. Ask me anything and I might just know the answer.
 ^ If you don't know what to ask type /help
 
 + [*] help [*]
 - You can ask me questions like:\n
 ^ Which movies were made between 1990 and 2000?\n
-^ Which movies were release in more than 1 country?\n
-^ how much time does it take to watch Breaking Bad?\n
-^ What is the date?\n
-^ show files\n
+^ Which movies were made in The Netherlands?\n
+^ Which
 ^ What are common video formats?
 
 + *
-- Not sure I got that. Type /help for some example questions.
-
-+ show files
-- <call>system Start</call>
-
-+ what is the date?
-- The date is: <call>system date</call>
-
-+ which movies did _ _ *
-- <call>jdbc localhost 5432 imdb imdb imdb select title from cast_info, name, title, kind_type where person_id = name.id and title.id = movie_id and kind_id = kind_type.id and name like '<star2>, <star>' and kind = 'movie'</call>
-
-+ [*] video formats [*]
-- There it is! 
-^ <call>send photo resources/meme.png The graph produced by R</call>
+- I'm sorry my love, I don't know that. try /help for some sample quetions
 
 // Substitutions
 ! sub i'm     = i am
