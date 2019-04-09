@@ -10,15 +10,15 @@
 
 //1
 + which (films|movies) * between # and #
--I know of these movies:\n
+- I know of these movies:\n
 ^ <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT title, year FROM public.movie WHERE year BETWEEN <star3> AND <star4> ORDER BY year</call>;
 //2
 + what are the best (films|movies) in the genre *
 - <call>jdbc localhost 5432 MovieIMDB postgres 12345</call>
 //3
-+ which (films|movies) (have been|were) (made|produced) in *
++ (which|what) (films|movies) (have been|were) (made|produced) in *
 - I know of these:\n
-^ <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT title, country FROM public.country WHERE country=<star4> ORDER BY title</call>
+^ <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT title, country FROM public.country WHERE country=<star5> ORDER BY title</call>
 //4
 + how many people rated *
 - <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT vote FROM public.rating WHERE title='<star2>' ORDER BY title;</call> people rated that movie.

@@ -1,8 +1,8 @@
 package moviebuffbot;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
 import com.rivescript.macro.Subroutine;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,10 +29,11 @@ public class JdbcSubroutine implements Subroutine {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
+        System.out.println(host + " " + port + " " + db + " " + username + " " + password + " " + sql);
 
         try {
             connection=(Connection) DriverManager.getConnection(
-                    "jdbc:postgreswl://" + host + ":" + port + "/" + db + "?autoReconnect=true&useSSL=false",
+                    "jdbc:postgresql://" + host + ":" + port + "/" + db + "?autoReconnect=true&useSSL=false",
                     username, password);
             statement=(Statement) connection.createStatement();
             resultSet=statement.executeQuery(sql);
