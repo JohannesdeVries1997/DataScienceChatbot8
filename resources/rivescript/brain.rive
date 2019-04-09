@@ -16,9 +16,9 @@
 + what are the best (films|movies) in the genre *
 - <call>jdbc localhost 5432 MovieIMDB postgres 12345</call>
 //3
-+ which (films|movies) have[ been] (made|produced) in *
++ which (films|movies) (have been|were) (made|produced) in *
 - I know of these:\n
-^ <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT title, country FROM public.country WHERE country=<star3> ORDER BY title</call>
+^ <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT title, country FROM public.country WHERE country=<star4> ORDER BY title</call>
 //4
 + how many people rated *
 - <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT vote FROM public.rating WHERE title='<star2>' ORDER BY title;</call> people rated that movie.
