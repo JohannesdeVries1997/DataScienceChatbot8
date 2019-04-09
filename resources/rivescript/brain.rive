@@ -11,27 +11,27 @@
 //1
 + which (films|movies) * between # and #
 - I know of these movies:\n
-^ <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT title, year FROM public.movie WHERE year BETWEEN <star3> AND <star4> ORDER BY year</call>;
+^ <call>jdbc localhost 5432 MovieIMDB postgres 1234 SELECT title, year FROM public.movie WHERE year BETWEEN <star3> AND <star4> AND vote > 50000 AND rating > 7 ORDER BY year</call>
 //2
 + what are the best (films|movies) in the genre *
-- <call>jdbc localhost 5432 MovieIMDB postgres 12345</call>
+- <call>jdbc localhost 5432 MovieIMDB postgres 1234</call>
 //3
 + (which|what) (films|movies) (have been|were) (made|produced) in *
-- I know of these:\n
-^ <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT title, country FROM public.country WHERE country=<star5> ORDER BY title</call>
+- I know the top 30 films from this country:\n
+^ <call>jdbc localhost 5432 MovieIMDB postgres 1234 SELECT title, country FROM public.country WHERE country ILIKE '<star5>' ORDER BY title LIMIT 30</call>
 //4
 + how many people rated *
-- <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT vote FROM public.rating WHERE title='<star2>' ORDER BY title;</call> people rated that movie.
+- <call>jdbc localhost 5432 MovieIMDB postgres 1234 SELECT vote FROM public.rating WHERE title ILIKE '<star2>' ORDER BY title;</call> people rated that movie.
 + how many (ratings|votes) did * get
-- <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT vote FROM public.rating WHERE title='<star2>' ORDER BY title;</call> people rated that movie.
+- <call>jdbc localhost 5432 MovieIMDB postgres 1234 SELECT vote FROM public.rating WHERE title ILIKE '<star2>' ORDER BY title;</call> people rated that movie.
 //5
 + how much time[*] (finish|watch) *
-- <star3> takes <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT duration FROM public.movie WHERE title='<star3>' ORDER BY title</call> minutes to watch.
+- <star3> takes <call>jdbc localhost 5432 MovieIMDB postgres 1234 SELECT duration FROM public.movie WHERE title='<star3>' ORDER BY title</call> minutes to watch.
 //6
 + in which language was * made
-- I think they spoke: <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT language FROM public.language WHERE title='<star>'</call> in that movie
+- I think they spoke: <call>jdbc localhost 5432 MovieIMDB postgres 1234 SELECT language FROM public.language WHERE title='<star>'</call> in that movie
 + (what|which) language[s] (was|were) spoken in *
-- I think they spoke: <call>jdbc localhost 5432 MovieIMDB postgres 12345 SELECT language FROM public.language WHERE title='<star3>'</call> in that movie
+- I think they spoke: <call>jdbc localhost 5432 MovieIMDB postgres 1234 SELECT language FROM public.language WHERE title='<star3>'</call> in that movie
 
 + (which|what) genre[s] *
 - popular genre

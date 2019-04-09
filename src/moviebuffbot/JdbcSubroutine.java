@@ -1,11 +1,12 @@
 package moviebuffbot;
 
 import com.rivescript.macro.Subroutine;
-import java.sql.Connection;
-import java.sql.Statement;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+//import java.sql.Connection;
+//import java.sql.Statement;
+//import java.sql.DriverManager;
+//import java.sql.ResultSet;
+//import java.sql.SQLException;
 
 /**
  *
@@ -30,10 +31,16 @@ public class JdbcSubroutine implements Subroutine {
         Statement statement = null;
         ResultSet resultSet = null;
         System.out.println(host + " " + port + " " + db + " " + username + " " + password + " " + sql);
-
+        
+        try{
+            Class.forName("org.postgresql.Driver");
+        }
+        catch(ClassNotFoundException e){
+            e.printStackTrace();
+        }
         try {
             connection=(Connection) DriverManager.getConnection(
-                    "jdbc:postgresql://" + host + ":" + port + "/" + db + "?autoReconnect=true&useSSL=false",
+                    "jdbc:postgresql://" + host + ":" + port + "/" + db,
                     username, password);
             statement=(Statement) connection.createStatement();
             resultSet=statement.executeQuery(sql);
