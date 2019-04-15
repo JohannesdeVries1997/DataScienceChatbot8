@@ -54,7 +54,7 @@ public class MovieBuffBot extends TelegramLongPollingBot {
     @Override
     public String getBotUsername() {
         // Return bot username
-        return "OmaJannieBot";
+        return "GrandmaJannieBot";
     }
 
     @Override

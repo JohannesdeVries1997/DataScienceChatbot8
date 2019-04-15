@@ -1,63 +1,142 @@
 // brain.rive
 
+! var name = Jannie
+! var fullname = Grandma Jannie
+! var age = secret
+! var job = robot
+
 + hello
 - Hello my dear!
 
++ hey
+@ hello
+
++ hi
+@ hello
+
 + how are you
-- I'm fine my dear.
-- Splendid!
-- Couldn't be better!
+- I'm fine, what about you?
 
-//1
-+ which (films|movies) * between # and #
-- I know of these movies:\n
-^ <call>jdbc localhost 5432 MovieIMDB postgres 1234 SELECT title, year FROM public.movie WHERE year BETWEEN <star3> AND <star4> AND vote > 50000 AND rating > 7 ORDER BY year</call>
-//2
-+ what are the best (films|movies) in the genre *
-- <call>jdbc localhost 5432 MovieIMDB postgres 1234</call>
-//3
-+ (which|what) (films|movies) (have been|were) (made|produced) in *
-- I know the top 30 films from this country:\n
-^ <call>jdbc localhost 5432 MovieIMDB postgres 1234 SELECT title, country FROM public.country WHERE country ILIKE '<star5>' ORDER BY title LIMIT 30</call>
-//4
-+ how many people rated *
-- <call>jdbc localhost 5432 MovieIMDB postgres 1234 SELECT vote FROM public.rating WHERE title ILIKE '<star2>' ORDER BY title;</call> people rated that movie.
-+ how many (ratings|votes) did * get
-- <call>jdbc localhost 5432 MovieIMDB postgres 1234 SELECT vote FROM public.rating WHERE title ILIKE '<star2>' ORDER BY title;</call> people rated that movie.
-//5
-+ how much time[*] (finish|watch) *
-- <star3> takes <call>jdbc localhost 5432 MovieIMDB postgres 1234 SELECT duration FROM public.movie WHERE title='<star3>' ORDER BY title</call> minutes to watch.
-//6
-+ in which language was * made
-- I think they spoke: <call>jdbc localhost 5432 MovieIMDB postgres 1234 SELECT language FROM public.language WHERE title='<star>'</call> in that movie
-+ (what|which) language[s] (was|were) spoken in *
-- I think they spoke: <call>jdbc localhost 5432 MovieIMDB postgres 1234 SELECT language FROM public.language WHERE title='<star3>'</call> in that movie
++ [i feel] *
+% i am fine what about you
+- <star>? Okay wow!
 
-+ (which|what) genre[s] *
-- popular genre
++ my name is *
+- <set name=<formal>>It's nice to meet you, <get name>.
 
-+ where *
-- most films
++ (what is your name|who are you|who is this)
+- I am <bot name>.
+- You can call me <bot name>.
 
-+ is * a good (film|movie)
-- good movie
-
-+ in which language*most[*]
-- most language
++ (what is my name|who am i|do you know my name|do you know who i am){weight=10}
+- Your name is <get name>, silly child.
+- You told me your name is <get name>, dear.
 
 + [*] start [*]
-- Hello, I'm grandma Jannie, I know a lot about movies. Ask me anything and I might just know the answer.
-^ If you don't know what to ask type /help
+- Hello dear, I am grandma Jannie 👵🏽, I know a lot about movies!\nAsk me anything and I might just know the answer.\n
+^ If you don't know what to ask type\n/help or\n/rules
 
 + [*] help [*]
 - You can ask me questions like:\n
-^ Which movies were made between 1990 and 2000?\n
-^ Which movies were made in The Netherlands?\n
-^ Which
-^ What are common video formats?
+^ 👉 Which movies were made between 1990 and 2000?\n
+^ 👉 Which movies were made in Italy?\n
+^ 👉 What genre is the Titanic?\n
+^ 👉 How many votes did It get?\n
+^ 👉 In what language was Finding Nemo made?
+
++ [*] rules [*]
+- It is important to ask me stuff in a precise way, because I as an old lady don't understand street language 🤣\n\n
+^ 👉 When asking a question about release dates, I work best when keeping the gap between the years under 10 years.\n\n
+^ 👉 If you want me to tell you something about a specific movie, ask the question and use the whole title! There are so many movies...
+
+
+//1 works
++ which (films|movies) * between # and #
+- I know of these movies:\n\n
+^ <call>jdbc localhost 5432 MovieIMDB postgres 1234 SELECT DISTINCT title FROM public.movie WHERE year BETWEEN <star3> AND <star4> AND vote > 80000 AND rating > 8 ORDER BY title</call>
+
+//2 works
++ what are the 10 best (films|movies) in the genre *
+- My grandson told me about these fine movies:\n\n
+^ <call>jdbc localhost 5432 MovieIMDB postgres 1234 SELECT DISTINCT movie.title FROM public.movie INNER JOIN public.genre ON movie.title = genre.title WHERE genre ILIKE '<star2>' AND vote > 50000 AND rating > 7 ORDER BY movie.title DESC LIMIT 10</call>
+
+//3 works
++ (which|what) (films|movies) (have been|were) (made|produced) in [the] *
+- I know the best movies from this country:\n\n
+^ <call>jdbc localhost 5432 MovieIMDB postgres 1234 SELECT DISTINCT movie.title FROM public.movie INNER JOIN public.country ON movie.title = country.title WHERE country ILIKE '<star5>' AND vote > 50000 AND rating > 7 ORDER BY title LIMIT 30</call>
+
+//4.5 works
++ how many (ratings|votes) did * get
+- <call>jdbc localhost 5432 MovieIMDB postgres 1234 SELECT vote FROM public.rating WHERE title ILIKE '<star2>' LIMIT 1</call>
+^ people rated that movie.\nThat is a lot of people!
+
+//5 
++ how long[*] (finish|watch) *
+- '<star2>' takes\s
+^ <call>jdbc localhost 5432 MovieIMDB postgres 1234 SELECT DISTINCT duration FROM public.movie WHERE title ILIKE '<star2>'</call>minutes to watch. Gosh, I'll probably fall asleep before the movie ends.
+
+//6
++ in (which|what) language was * made
+- I think they spoke <call>jdbc localhost 5432 MovieIMDB postgres 1234 SELECT DISTINCT language FROM public.language WHERE title ILIKE '<star2>' LIMIT 1</call>in that movie
+
++ (what|which) language[s] (was|were) spoken in *
+- I think they spoke: <call>jdbc localhost 5432 MovieIMDB postgres 1234 SELECT DISTINCT language FROM public.language WHERE title ILIKE '<star>' LIMIT 1</call>in that movie
+
++ what are the most popular * genres
+- Technology!📊
+^ <call>system "C:/Windows/system32/cmd.exe" /c echo hoi > DataScienceChatBot8/resources/fotos/bob.txt </call>
+^ <call>system "C:/Program Files/R/R-3.5.2/bin/Rscript.exe" --vanilla DataScienceChatBot8/resources/R/video-format.R> NUL</call>
+^ <call>send photo D:/Documents/GitHub/DataScienceChatbot8/resources/fotos/genre_popularity.png The graph produced by R</call>
+^ <call>system "C:/Windows/system32/cmd.exe" /c type DataScienceChatBot8\resources\txt\videoformat.txt</call>
+
++ where were the most (movies|films) made
+- Wow, a diagram!📊
+^ <call>system "C:/Windows/system32/cmd.exe" /c echo hoi > DataScienceChatBot8/resources/fotos/bob.txt </call>
+^ <call>system "C:/Program Files/R/R-3.5.2/bin/Rscript.exe" --vanilla DataScienceChatBot8/resources/R/video-format.R> NUL</call>
+^ <call>send photo D:/Documents/GitHub/DataScienceChatbot8/resources/fotos/movie_locations.png The graph produced by R</call>
+^ <call>system "C:/Windows/system32/cmd.exe" /c type DataScienceChatBot8\resources\txt\videoformat.txt</call>
+
++ * made in [the] * are spoken in * 
+- Here you go hun.
+^ <call>system "C:/Program Files/R/R-3.5.2/bin/Rscript.exe" --vanilla D:/Documents/GitHub/DataScienceChatbot8/resources/R/script.R <star2> <star3> > NUL</call>
+^ <call>send photo D:/Documents/GitHub/DataScienceChatbot8/resources/R/rplot.jpg The graph produced by R</call> 
+
++ * that is * minutes long a good *
+- Here you go hun.
+^ <call>system "C:/Program Files/R/R-3.5.2/bin/Rscript.exe" --vanilla D:/Documents/GitHub/DataScienceChatbot8/resources/R/script2.R <star2> > NUL</call>
+^ <call>send photo D:/Documents/GitHub/DataScienceChatbot8/resources/R/rplot2.jpg The graph produced by R</call> 
+
++ thanks
+- No problem love ❤
+
++ where are you?
+- In your phone dear.
+- What a silly question. 🤣
+
++ how old are you
+- Now now, you shouldn't be asking a lady how old she is...
+
++ what is the bee movie script
+- Oh what a great question! My grandson made this beautiful website.\nYou can find what you're looking for on there:\nhttp://www.script-o-rama.com/movie_scripts/a1/bee-movie-script-transcript-seinfeld.html
+- I love bees! 🐝🐝🐝🐝🐝🐝
+
++ what (is|are) the top * movies [made] in the adult genre [*]
+- Oh my, you shouldn't ask an old lady such obscene questions!
+- Oh my, I won't answer that dear...
+
++ google *
+- This great online encyclopedia found an answer for you:\n http://google.com/search?q=<star>
+
++ (cool|splendid|great|sick|very cool|nice)
+- Thank you dear, I try.
 
 + *
-- I'm sorry my love, I don't know that. try /help for some sample quetions
+- I'm sorry my love, I don't know that.\nTry typing /help for some sample questions.
+- I think I might be too old to know that dear. \nTry typing /help for some sample questions.
+- Pardon me?
+
++ who made you grandma?
+- Oh my, I think they were called\nLeander Woudstra\nSjimmie Bleeker\nJohannes de Vries\nSietse Leenstra\nand\nDemi Stedehouder
 
 // Substitutions
 ! sub i'm     = i am
